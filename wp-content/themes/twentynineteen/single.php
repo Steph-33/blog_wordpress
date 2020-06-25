@@ -52,9 +52,11 @@ get_header();
 
 			endwhile; // End the loop.
 			?>
+<?php the_field('likes_number'); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
 <?php
 get_footer();
+

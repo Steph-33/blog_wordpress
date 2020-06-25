@@ -328,3 +328,13 @@ require get_template_directory() . '/inc/template-tags.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
+// Register the new route
+add_action( 'rest_api_init', function () {
+
+	register_rest_route( 'example/v2', '/likes/(?P<id>\d+)', array(
+		  'methods' => array('GET','POST'),
+		  'callback' => 'example__like',
+	  ) );
+  
+  });
