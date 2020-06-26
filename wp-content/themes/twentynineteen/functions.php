@@ -328,7 +328,7 @@ require get_template_directory() . '/inc/template-tags.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
-
+//////////////////////////////////////////////////////////////////////////////
 // Register the new route
 add_action( 'rest_api_init', function () {
 
@@ -338,3 +338,30 @@ add_action( 'rest_api_init', function () {
 	  ) );
   
   });
+
+// This is how you setup a callback function to work with your new endpoint
+function example__like( WP_REST_Request $request ) {
+   // Custom field slug
+   $field_name = 'likes_number';
+   // Get the current like number for the post
+   $current_likes = get_field($field_name, $request['id']);
+   // Add 1 to the existing number
+   $updated_likes = $current_likes + 1;
+   // Update the field with a new value on this post
+   $likes = update_field($field_name, $updated_likes, $request['id']);
+
+	return $likes;
+}
+
+/* fonction ajouter script externe */
+add_action( 'wp_enqueue_scripts', 'enqueue_mon_script' );
+function enqueue_mon_script() {
+    wp_enqueue_script( 'script-perso', get_stylesheet_directory_uri() . 'custom-js/custom-jquery.js', array( 'jquery' ) );
+}
+
+wp_localize_script( 'init', 'bloginfo', array(
+	'template_url' => get_bloginfo('template_url'),
+	'site_url' => get_bloginfo('url'),
+	'post_id'   => get_queried_object()
+));
+

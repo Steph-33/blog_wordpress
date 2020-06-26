@@ -52,7 +52,9 @@ get_header();
 
 			endwhile; // End the loop.
 			?>
-<?php the_field('likes_number'); ?>
+			<button class="like__btn">
+				<span class="like__number"><?php the_field('likes_number'); ?></span>
+			</button>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
